@@ -1,12 +1,14 @@
 import voluptuous as vol
 
+from alarm.schema_mappings import Datetime
+
 SCHEMA = vol.Schema({
     vol.Required("id", default=-1): vol.Number(),
     vol.Required("hour"): vol.Number(),
     vol.Required("minutes"): vol.Number(),
     vol.Required("daysOfWeek"): {
         vol.Required("days"): vol.Number(),
-        vol.Optional("nonWeeklyFrom", default=-1): vol.Number(),
+        vol.Optional("nonWeeklyFrom", default=-1): Datetime(),
         vol.Optional("nonWeeklyRepeat", default=-1): vol.Number(),
         vol.Optional("weekRepeat", default=0): vol.Number()
     },
@@ -20,7 +22,7 @@ SCHEMA = vol.Schema({
         vol.Optional("terminatesTracking", default=True): vol.Boolean(),
         vol.Optional("gradualVolumeIncrease", default=-2): vol.Number(),
         vol.Optional("isSelfDisposable", default=False): vol.Boolean(),
-        vol.Optional("lastEnableTimestamp", default=-1): vol.Number(),
+        vol.Optional("lastEnableTimestamp"): Datetime(),
         vol.Optional("selectedPlaylists", default=[]): [str],
         vol.Optional("snoozeAfterAlarm", default=-1): vol.Number(),
         vol.Optional("snoozeDuration", default=5): vol.Number(),
@@ -32,7 +34,9 @@ SCHEMA = vol.Schema({
         vol.Optional("vibrationStart", default=0): vol.Number(),
         vol.Optional("vibrationStartSmartWatch", default=0): vol.Number(),
         vol.Optional("weekRepeat", default=0): vol.Number(),
-    }
+    },
+    vol.Optional("suspendTime", default=-1): Datetime(),
+    vol.Optional("time"): Datetime()
 }, extra=True)
 
 
